@@ -25,3 +25,26 @@ I built this project to understand the Bitcoin transaction format and improve my
 - Understanding Bitcoin transaction structure
 - Binary data parsing
 - Writing clean C++ CLI programs
+# Bitcoin Transaction Parser (C++)
+
+A beginner-friendly C++ command-line tool that parses raw Bitcoin transaction
+hex data and extracts basic transaction metadata.
+
+This project is built as a stepping stone towards contributing to
+Bitcoin Core and participating in **Summer of Bitcoin**.
+
+---
+
+## Features
+- Accepts raw Bitcoin transaction hex input
+- Calculates transaction hex length
+- Extracts transaction version (little-endian)
+- Simple and readable C++ implementation
+
+---
+
+## Build & Run
+
+```bash
+g++ src/main.cpp -o btc_parser
+./btc_parser
