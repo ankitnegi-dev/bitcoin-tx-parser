@@ -2,22 +2,35 @@
 #include <string>
 
 int main() {
-    std::string txHex;
+    std::string tx_hex;
 
     std::cout << "Enter raw Bitcoin transaction hex: ";
-    std::cin >> txHex;
+    std::cin >> tx_hex;
 
     std::cout << "\n--- Transaction Info ---\n";
-    std::cout << "Hex length: " << txHex.length() << " characters\n";
+    std::cout << "Hex length: " << tx_hex.length() << " characters\n";
 
-    if (txHex.length() < 8) {
-        std::cout << "Invalid transaction (too short)\n";
+    // Check minimum length for version (4 bytes = 8 hex chars)
+    if (tx_hex.length() >= 8) {
+        std::string version = tx_hex.substr(0, 8);
+        std::cout << "Version (hex): " << version << "\n";
+    } else {
+        std::cout << "Invalid transaction: too short for version\n";
         return 0;
     }
 
-    std::string versionHex = txHex.substr(0, 8);
-    std::cout << "Version (hex): " << versionHex << "\n";
+    // Check for input count byte (next 2 hex chars after version)
+    if (tx_hex.length() >= 10) {
+        std::string input_count_hex = tx_hex.substr(8, 2);
 
-    std::cout << "Parsing completed (basic)\n";
+        // Convert hex → integer
+        int input_count = std::stoi(input_count_hex, nullptr, 16);
+
+        std::cout << "Number of Inputs: " << input_count << "\n";
+    } else {
+        std::cout << "Input count not available\n";
+    }
+
+    std::cout << "Parsing completed (basic v2)\n";
     return 0;
 }
